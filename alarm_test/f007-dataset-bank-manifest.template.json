@@ -1,0 +1,138 @@
+{
+  "manifest_version": "1.1",
+  "dataset_bank_id": "<f007-controlled-physical-bank-id>",
+  "origin_class": "controlled_synthetic_physical",
+  "operational_representative": false,
+  "generated_at_utc": "<YYYY-MM-DDTHH:MM:SSZ>",
+  "generator": {
+    "name": "<offline-generator-name>",
+    "version": "<generator-version>",
+    "deterministic_seed": 0,
+    "parameters_sha256": "<sha256-of-canonical-generator-parameters>"
+  },
+  "mount_contract": {
+    "container_path": "/f007/input",
+    "read_only": true
+  },
+  "observed_size_anchors": {
+    "pi_daily_artifact": {
+      "approx_bytes": 204800,
+      "note": "Calibration anchor only; observed files may be larger."
+    },
+    "dispatch_operational_day_both_turns": {
+      "approx_bytes": 153600,
+      "scope": "<declare-exact-dispatch-source-or-aggregate-scope>",
+      "note": "Calibration anchor only; do not multiply across sources unless the workload selects them."
+    }
+  },
+  "profiles": {
+    "WARM_FIXED": {
+      "authoritative_for_alarm_capacity": true,
+      "description": "Prewarm then repeatedly read the same accepted physical Latest through DataSourceLoader/DatasetRuntime/ParquetDatasetStore.",
+      "requirements": [
+        {
+          "source": "pi.interpolated",
+          "partition": "latest",
+          "projected_columns": "<pilot-output>"
+        }
+      ]
+    },
+    "FIRST_TOUCH_PARTITIONED": {
+      "authoritative_for_alarm_capacity": false,
+      "description": "Companion page-cache/I/O characterization using distinct physical partition windows.",
+      "window_count": 61,
+      "as_of_strategy": {
+        "deterministic": true,
+        "stride_days": 8,
+        "dispatch_turn_suffix": "002",
+        "require_no_repeated_target_paths_within_stage": true
+      },
+      "pi": {
+        "source": "pi.interpolated",
+        "partition": "daily",
+        "time_window": {
+          "value": 7,
+          "unit": "days"
+        },
+        "expected_daily_artifacts_per_window": 8
+      },
+      "dispatch": {
+        "sources": [
+          "<selected-dispatch-shift-source>"
+        ],
+        "partition": "shift",
+        "shift_selection": {
+          "scope": "days",
+          "days": 7
+        },
+        "expected_shift_artifacts_per_source_per_window": 14
+      }
+    }
+  },
+  "aggregate_physical": {
+    "file_count": 0,
+    "total_bytes": 0,
+    "row_count_sum": 0,
+    "row_group_count_total": 0,
+    "compression_codecs": [],
+    "projectable_signal_count": 0
+  },
+  "schemas": [
+    {
+      "source": "<source>",
+      "materialization": "<latest|daily|shift>",
+      "fingerprint_sha256": "<canonical-schema-sha256>",
+      "fields": [
+        {
+          "name": "<column>",
+          "type": "<arrow/parquet-type>",
+          "nullable": true,
+          "role": "<timestamp|shift|signal|metadata|other>",
+          "projectable_for_f007": false
+        }
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "window_index": 0,
+      "as_of_utc": "<YYYY-MM-DDTHH:MM:SSZ>",
+      "resolved_targets": [
+        {
+          "source": "<source>",
+          "partition": "<daily|shift>",
+          "target_identifier": "<dataset-target>",
+          "mount_relative_path": "<relative/path/data.parquet>"
+        }
+      ],
+      "window_fingerprint_sha256": "<sha256-of-canonical-target-list>"
+    }
+  ],
+  "files": [
+    {
+      "mount_relative_path": "<relative/path/data.parquet>",
+      "source": "<source>",
+      "materialization": "<latest|daily|shift>",
+      "partition": {},
+      "sha256": "<file-sha256>",
+      "bytes": 0,
+      "row_count": 0,
+      "column_count": 0,
+      "row_group_count": 0,
+      "compression_codecs": [],
+      "schema_fingerprint_sha256": "<file-schema-sha256>"
+    }
+  ],
+  "fingerprints": {
+    "algorithm": "sha256",
+    "file_aggregate_canonicalization": "sort entries by mount_relative_path; concatenate '<path>\\t<file_sha256>\\n'; hash UTF-8 bytes",
+    "aggregate_sha256": "<computed-after-generation>",
+    "bank_window_canonicalization": "sort by window_index; concatenate '<window_index>\\t<window_fingerprint_sha256>\\n'; hash UTF-8 bytes",
+    "bank_sha256": "<computed-after-generation>"
+  },
+  "security": {
+    "contains_operational_values": false,
+    "contains_secrets": false,
+    "retain_raw_dataset_with_campaign_artifacts": true
+  }
+}

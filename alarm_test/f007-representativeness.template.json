@@ -1,0 +1,54 @@
+{
+  "report_version": "1.0",
+  "dataset_id": "<same-as-manifest>",
+  "source_capture_manifest_sha256": "<required-if-sanitized>",
+  "sanitized_manifest_sha256": "<manifest-file-sha256>",
+  "status": "<PASS|REVIEW|FAIL>",
+  "acceptance_rule": {
+    "per_file_physical_size_tolerance_percent": 10,
+    "aggregate_physical_size_tolerance_percent": 10,
+    "row_group_geometry_must_match": true,
+    "schema_types_and_nullability_must_match": true,
+    "partition_layout_must_match": true
+  },
+  "comparison": {
+    "file_count": {
+      "source": 0,
+      "candidate": 0,
+      "delta_percent": 0.0
+    },
+    "total_bytes": {
+      "source": 0,
+      "candidate": 0,
+      "delta_percent": 0.0
+    },
+    "row_count": {
+      "source": 0,
+      "candidate": 0,
+      "delta_percent": 0.0
+    },
+    "physical_column_count": {
+      "source": 0,
+      "candidate": 0
+    },
+    "projectable_signal_count": {
+      "source": 0,
+      "candidate": 0
+    },
+    "row_group_count_total": {
+      "source": 0,
+      "candidate": 0
+    },
+    "schema_equivalent": false,
+    "row_group_geometry_equivalent": false,
+    "compression_codecs_equivalent": false,
+    "partition_layout_equivalent": false
+  },
+  "distribution_checks": {
+    "null_ratio_by_column": "<summary-or-external-stats>",
+    "timestamp_spacing": "<summary>",
+    "approx_cardinality": "<summary>",
+    "compression_relevant_distribution": "<summary>"
+  },
+  "review_notes": ""
+}

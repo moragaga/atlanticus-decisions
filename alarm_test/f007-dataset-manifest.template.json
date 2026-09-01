@@ -1,0 +1,79 @@
+{
+  "manifest_version": "1.0",
+  "dataset_id": "<f007-latest-capture-id>",
+  "schema_version": "<source-schema-version>",
+  "captured_at_utc": "<YYYY-MM-DDTHH:MM:SSZ>",
+  "origin_class": "<operational_capture|sanitized_operational_shape>",
+  "source_identity": {
+    "source_key": "<named-source-key>",
+    "dataset_namespace": [
+      "<namespace>"
+    ],
+    "dataset_name": "<dataset-name>",
+    "materialization": "latest",
+    "publication_or_revision": "<optional-source-publication-id>"
+  },
+  "mount_contract": {
+    "container_path": "/f007/input",
+    "read_only": true
+  },
+  "aggregate_fingerprint": {
+    "algorithm": "sha256",
+    "canonicalization": "sort entries by mount_relative_path; concatenate '<path>\\t<file_sha256>\\n'; hash UTF-8 bytes",
+    "sha256": "<computed-after-capture>"
+  },
+  "aggregate_physical": {
+    "file_count": 0,
+    "total_bytes": 0,
+    "physical_row_count_sum": 0,
+    "physical_column_count": 0,
+    "projectable_signal_count": 0,
+    "row_group_count_total": 0,
+    "compression_codecs": [],
+    "partition_layout": "<single-artifact|file-set|partitioned>",
+    "partition_dimensions": []
+  },
+  "schema": {
+    "fingerprint_sha256": "<canonical-schema-sha256>",
+    "fields": [
+      {
+        "name": "<column>",
+        "type": "<arrow/parquet-type>",
+        "nullable": true,
+        "role": "<timestamp|signal|metadata|other>",
+        "projectable_for_f007": false
+      }
+    ]
+  },
+  "files": [
+    {
+      "mount_relative_path": "<relative/path/file.parquet>",
+      "sha256": "<file-sha256>",
+      "bytes": 0,
+      "row_count": 0,
+      "column_count": 0,
+      "row_group_count": 0,
+      "row_groups": [
+        {
+          "index": 0,
+          "rows": 0,
+          "total_byte_size": 0,
+          "compressed_byte_size": 0
+        }
+      ],
+      "compression_codecs": [],
+      "schema_fingerprint_sha256": "<file-schema-sha256>"
+    }
+  ],
+  "capture_quality": {
+    "exact_physical_copy": false,
+    "sanitized": false,
+    "representativeness_report": "<null|f007-representativeness.json>",
+    "notes": ""
+  },
+  "security": {
+    "contains_operational_values": true,
+    "contains_secrets": false,
+    "retain_raw_dataset_with_campaign_artifacts": false
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "report_version": "1.1",
+  "dataset_bank_id": "<same-as-manifest>",
+  "manifest_sha256": "<manifest-file-sha256>",
+  "status": "<PASS|REVIEW|FAIL>",
+  "claims": {
+    "physical_read_path_conformance": true,
+    "deterministic_fixture_identity": true,
+    "operational_representativeness": false
+  },
+  "generator_checks": {
+    "generated_outside_measured_run": false,
+    "deterministic_rebuild_verified": false,
+    "generator_version_recorded": false,
+    "parameters_hash_recorded": false
+  },
+  "physical_checks": {
+    "all_files_exist": false,
+    "all_file_hashes_match": false,
+    "aggregate_fingerprint_matches": false,
+    "bank_fingerprint_matches": false,
+    "schema_metadata_complete": false,
+    "row_group_metadata_complete": false,
+    "compression_metadata_complete": false,
+    "projectable_signal_count_established": false
+  },
+  "profile_resolution_checks": {
+    "warm_fixed_latest_resolves": false,
+    "first_touch_window_count_expected": 61,
+    "first_touch_window_count_actual": 0,
+    "no_repeated_target_paths_within_stage": false,
+    "pi_expected_daily_artifacts_per_window": 8,
+    "pi_resolution_matches": false,
+    "dispatch_expected_shift_artifacts_per_source_per_window": 14,
+    "dispatch_resolution_matches": false
+  },
+  "size_anchor_calibration": {
+    "pi_daily": {
+      "observed_anchor_bytes": 204800,
+      "actual_distribution": {
+        "min_bytes": 0,
+        "median_bytes": 0,
+        "max_bytes": 0
+      },
+      "status": "<INFO|REVIEW>"
+    },
+    "dispatch_day_both_turns": {
+      "observed_anchor_bytes": 153600,
+      "declared_scope": "<exact-source-or-aggregate-scope>",
+      "actual_distribution": {
+        "min_bytes": 0,
+        "median_bytes": 0,
+        "max_bytes": 0
+      },
+      "status": "<INFO|REVIEW>"
+    }
+  },
+  "mount_checks": {
+    "container_path": "/f007/input",
+    "read_only": false
+  },
+  "page_cache_semantics": {
+    "drop_caches_used": false,
+    "first_touch_claim_is_not_cold_cache_claim": true,
+    "io_stat_required": true,
+    "memory_stat_file_cache_required": true
+  },
+  "review_notes": ""
+}
